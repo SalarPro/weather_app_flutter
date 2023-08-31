@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,24 +16,54 @@
                         <viewControllerLayoutGuide type="bottom" id="xbc-2k-c8Z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
+                                <rect key="frame" x="215" y="466" width="0.0" height="0.0"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgImg" translatesAutoresizingMaskIntoConstraints="NO" id="jNJ-aR-bcN">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WEATHER SERVICE" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGG-ay-12B">
+                                <rect key="frame" x="44" y="59" width="342" height="639"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="48"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dawn is coming soon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL4-Bq-w3w">
+                                <rect key="frame" x="20" y="799" width="390" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.025173339990000002" green="0.0069218575949999998" blue="0.92103928329999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
+                            <constraint firstItem="xbc-2k-c8Z" firstAttribute="top" secondItem="ZL4-Bq-w3w" secondAttribute="bottom" constant="70" id="AcA-4z-CrJ"/>
+                            <constraint firstItem="ZL4-Bq-w3w" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="GGv-4U-uU1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sGG-ay-12B" secondAttribute="trailing" constant="24" id="ILC-qv-sQg"/>
+                            <constraint firstItem="jNJ-aR-bcN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Ncm-mL-hwH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZL4-Bq-w3w" secondAttribute="trailing" id="O0m-uJ-cIA"/>
+                            <constraint firstItem="sGG-ay-12B" firstAttribute="top" secondItem="Ydg-fD-yQy" secondAttribute="bottom" id="TJM-Lc-6Eb"/>
+                            <constraint firstItem="sGG-ay-12B" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="24" id="XZJ-u1-LK9"/>
+                            <constraint firstItem="jNJ-aR-bcN" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="blg-Q0-1K5"/>
+                            <constraint firstAttribute="bottom" secondItem="jNJ-aR-bcN" secondAttribute="bottom" id="cbj-rv-Sih"/>
+                            <constraint firstAttribute="trailing" secondItem="jNJ-aR-bcN" secondAttribute="trailing" id="gcE-xC-eGF"/>
+                            <constraint firstItem="xbc-2k-c8Z" firstAttribute="top" secondItem="sGG-ay-12B" secondAttribute="bottom" constant="200" id="nUE-91-veL"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="80.152671755725194" y="264.08450704225356"/>
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="168" height="185"/>
+        <image name="LaunchImage" width="0.3333333432674408" height="0.3333333432674408"/>
+        <image name="bgImg" width="406" height="812"/>
     </resources>
 </document>
