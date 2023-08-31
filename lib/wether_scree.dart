@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/src/helper/assets.dart';
@@ -9,7 +11,12 @@ class WeatherScreen extends StatefulWidget {
   State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen> {
+class _WeatherScreenState extends State<WeatherScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 5),
+    vsync: this,
+  )..repeat();
   int cSelect = 1;
 
   @override
@@ -57,20 +64,84 @@ class _WeatherScreenState extends State<WeatherScreen> {
     );
   }
 
+  static Color? lerp(Color? a, Color? b, double tt) {
+    var t = tt;
+    if (t > 0.5) {
+      t = 1.0 - t;
+    }
+    t *= 2.0;
+    if (b == null) {
+      if (a == null) {
+        return null;
+      } else {
+        return _scaleAlpha(a, 1.0 - t);
+      }
+    } else {
+      if (a == null) {
+        return _scaleAlpha(b, t);
+      } else {
+        return Color.fromARGB(
+          _clampInt(_lerpInt(a.alpha, b.alpha, t).toInt(), 0, 255),
+          _clampInt(_lerpInt(a.red, b.red, t).toInt(), 0, 255),
+          _clampInt(_lerpInt(a.green, b.green, t).toInt(), 0, 255),
+          _clampInt(_lerpInt(a.blue, b.blue, t).toInt(), 0, 255),
+        );
+      }
+    }
+  }
+
+  static int _clampInt(int value, int min, int max) {
+    assert(min <= max);
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+  }
+
+  static double _lerpDouble(double a, double b, double t) {
+    return a + (b - a) * t;
+  }
+
+  static int _lerpInt(int a, int b, double t) {
+    return a + ((b - a) * t).round();
+  }
+
+  static Color _scaleAlpha(Color color, double factor) {
+    return Color.fromARGB(
+      _clampInt((color.alpha * factor).round(), 0, 255),
+      color.red,
+      color.green,
+      color.blue,
+    );
+  }
+
   Center weatherIcon() {
     return Center(
       child: Stack(
         children: [
-          CustomPaint(
-            painter: _BackgroundPainter(),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: MediaQuery.of(context).size.width * 0.5,
-              child: Image.asset(
-                Assets.assetsIconsW1,
-                fit: BoxFit.contain,
-              ),
-            ),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return CustomPaint(
+                painter: _BackgroundPainter(
+                  lerp(Color(0xffBD87FF), Color.fromARGB(255, 255, 255, 255),
+                          _controller.value) ??
+                      Colors.green,
+                  lerp(
+                          Color.fromARGB(255, 255, 255, 255),
+                          Color.fromARGB(255, 238, 103, 226),
+                          _controller.value) ??
+                      Colors.green,
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: MediaQuery.of(context).size.width * 0.5,
+                  child: Image.asset(
+                    Assets.assetsIconsW1,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -342,15 +413,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
 }
 
 class _BackgroundPainter extends CustomPainter {
+  _BackgroundPainter(this.color1, this.color2);
+
+  Color color1;
+  Color color2;
+
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    final paint = Paint()..color = const Color(0xffBD87FF);
+    final paint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          color1,
+          color2,
+          // Color.fromARGB(255, 255, 0, 204),
+          // Color.fromARGB(255, 178, 186, 14),
+        ],
+        // begin: Alignment.topLeft,
+        // end: Alignment.bottomRight,
+      ).createShader(rect);
 
-    paint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 60);
-    canvas.drawCircle(rect.center, rect.center.dx, paint);
+    paint.maskFilter = const MaskFilter.blur(BlurStyle.normal, 50);
+    canvas.drawCircle(rect.center, rect.center.dx + 15, paint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
